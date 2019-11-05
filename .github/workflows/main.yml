@@ -1,0 +1,22 @@
+
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-18.04
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install Solidity compiler
+      run: |
+        wget https://github.com/ethereum/solidity/releases/download/v0.5.10/solc-static-linux
+        chmod ugo+x solc-static-linux
+        sudo mv solc-static-linux /usr/bin/solc
+    - uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+    - name: Run tests
+      run: |
+        npm install
+        make lint && make compile && make test

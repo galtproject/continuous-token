@@ -1,0 +1,35 @@
+{
+  "name": "solidity-bootstrap",
+  "version": "1.0.0",
+  "description": "Bootstrap for Truffle/Solidity projects",
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {
+    "@galtproject/eslint-config-galt": "^1.1.0",
+    "@galtproject/solidity-test-chest": "https://github.com/galtproject/solidity-test-chest",
+    "cli-table": "^0.3.1",
+    "ethlint": "1.2.5",
+    "ganache-core": "2.8.0",
+    "lodash": "^4.17.15",
+    "openzeppelin-solidity": "2.3.0",
+    "solidity-coverage": "^0.6.7",
+    "truffle": "5.0.42",
+    "web3": "1.2.1"
+  },
+  "engines": {
+    "node": "^10.15.3"
+  },
+  "repository": "https://github.com/galtproject/solidity-bootstrap",
+  "scripts": {
+    "test": "truffle test --network test",
+    "report": "truffle exec report/report.js --network test",
+    "compile": "truffle compile",
+    "deploy": "truffle migrate --network local",
+    "coverage": "SOLIDITY_COVERAGE=yes solidity-coverage",
+    "eslint": "eslint .",
+    "ethlint": "solium --dir ."
+  },
+  "author": "",
+  "license": "MIT"
+}

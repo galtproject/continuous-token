@@ -1,0 +1,9 @@
+node_modules
+.idea
+.vscode
+coverage
+build
+.nyc_output
+deployed/*.json
+report/*.csv
+coverage.json
