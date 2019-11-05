@@ -64,8 +64,8 @@ async function runReport() {
 
   const continuousToken = await ContinuousToken.at(res.logs[2].args.continuousToken);
 
-  continuousToken.setGasPriceModifier(bob);
-  continuousToken.setGasPrice(gwei(30), { from: bob });
+  await continuousToken.setGasPriceModifier(bob);
+  await continuousToken.setGasPrice(gwei(30), { from: bob });
 
   await weth.deposit({ from: alice, value: ether(ethStart) });
   await weth.transfer(continuousToken.address, ether(ethStart), { from: alice });
