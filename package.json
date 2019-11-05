@@ -1,5 +1,5 @@
 {
-  "name": "continuous-token",
+  "name": "@galtproject/continuous-token",
   "version": "1.0.0",
   "description": "Continuous Token Implementation",
   "directories": {
