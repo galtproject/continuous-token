@@ -10,6 +10,9 @@ pragma solidity ^0.5.10;
 
 
 contract IConverter {
+  event Convert1to2(address indexed sender, uint256 amount);
+  event Convert2to1(address indexed sender, uint256 amount);
+
   function convert1to2(uint256 _amount) external;
   function convert2to1(uint256 _amount) external;
 }

@@ -17,9 +17,6 @@ import "./interfaces/IConverter.sol";
 contract Converter is IConverter {
   using SafeERC20 for IERC20;
 
-  event Convert1to2(address indexed sender, uint256 amount);
-  event Convert2to1(address indexed sender, uint256 amount);
-
   IERC20 public token1;
   IERC20 public token2;
 

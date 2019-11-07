@@ -11,8 +11,18 @@ pragma solidity ^0.5.10;
 
 
 contract IContinuousToken {
+  // IERC20 events
   event Transfer(address indexed from, address indexed to, uint256 value);
   event Approval(address indexed owner, address indexed spender, uint256 value);
+
+  // Token-specific events
+  event SetConversionFee(uint256 conversionFee);
+  event SetFeeBeneficiary(address feeBeneficiary);
+  event SetGasLimit(uint256 gasLimit);
+  event SetGasPriceModifier(address gasPriceModifier);
+  event Buy(address indexed trader, uint256 reserveAmount, uint256 purchaseReturn, uint256 fee);
+  event Sell(address indexed trader, uint256 continuousAmount, uint256 saleReturn, uint256 fee);
+  event PriceUpdate(uint256 totalSupply, uint256 reserveBalance);
 
   // IERC20 methods
   function approve(address spender, uint256 amount) external returns (bool);

@@ -24,14 +24,6 @@ contract ContinuousToken is IContinuousToken, ERC20, Ownable {
   uint32 private constant RATIO_RESOLUTION = 1000000;
   uint32 private constant CONVERSION_FEE_RESOLUTION = 1000000;
 
-  event SetConversionFee(uint256 conversionFee);
-  event SetFeeBeneficiary(address feeBeneficiary);
-  event SetGasLimit(uint256 gasLimit);
-  event SetGasPriceModifier(address gasPriceModifier);
-  event Buy(address indexed trader, uint256 reserveAmount, uint256 purchaseReturn, uint256 fee);
-  event Sell(address indexed trader, uint256 continuousAmount, uint256 saleReturn, uint256 fee);
-  event PriceUpdate(uint256 totalSupply, uint256 reserveBalance);
-
   uint32 public reserveRatio;
   uint32 public maxConversionFee;
   uint32 public conversionFee;
