@@ -8,9 +8,9 @@
  */
 pragma solidity ^0.5.10;
 
-import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
-import "openzeppelin-solidity/contracts/token/ERC20/SafeERC20.sol";
-import "openzeppelin-solidity/contracts/math/SafeMath.sol";
+import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
+import "@openzeppelin/contracts/math/SafeMath.sol";
 import "./interfaces/IContinuousToken.sol";
 import "./interfaces/IConverter.sol";
 import "./interfaces/IWETH.sol";
