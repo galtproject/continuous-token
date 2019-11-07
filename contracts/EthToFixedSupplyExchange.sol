@@ -9,8 +9,8 @@
 pragma solidity ^0.5.10;
 
 import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
+import "openzeppelin-solidity/contracts/token/ERC20/SafeERC20.sol";
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
-import "./Helpers.sol";
 import "./interfaces/IContinuousToken.sol";
 import "./interfaces/IConverter.sol";
 import "./interfaces/IWETH.sol";
@@ -18,6 +18,8 @@ import "./interfaces/IWETH.sol";
 
 contract EthToFixedSupplyExchange {
   using SafeMath for uint256;
+  using SafeERC20 for IERC20;
+
   event EthToFixed(address indexed from, uint256 ethAmount, uint256 fixedAmount);
   event FixedToEth(address indexed from, uint256 ethAmount, uint256 fixedAmount);
 
@@ -64,7 +66,7 @@ contract EthToFixedSupplyExchange {
     converter.convert2to1(amount);
 
     // fixed -> msg.sender
-    Helpers.ensureTransfer(fixedSupplyToken, msg.sender, amount);
+    fixedSupplyToken.transfer(msg.sender, amount);
 
     emit EthToFixed(msg.sender, ethAmount, amount);
   }
@@ -73,7 +75,7 @@ contract EthToFixedSupplyExchange {
     require(_sellAmount > 0, "Require _sellAmount > 0");
 
     // fixed transfer msg.sender -> exchange
-    Helpers.ensureTransferFrom(fixedSupplyToken, msg.sender, address(this), _sellAmount);
+    fixedSupplyToken.transferFrom(msg.sender, address(this), _sellAmount);
 
     // fixedSupplyToken -> continuousToken
     // converter token #1 - fixedSupplyToken

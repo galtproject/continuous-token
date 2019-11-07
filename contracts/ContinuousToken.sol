@@ -10,15 +10,16 @@ pragma solidity ^0.5.10;
 
 import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
 import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
+import "openzeppelin-solidity/contracts/token/ERC20/SafeERC20.sol";
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 import "./interfaces/IBancorFormula.sol";
 import "./interfaces/IContinuousToken.sol";
-import "./Helpers.sol";
 
 
 contract ContinuousToken is IContinuousToken, ERC20, Ownable {
   using SafeMath for uint256;
+  using SafeERC20 for IERC20;
 
   uint32 private constant RATIO_RESOLUTION = 1000000;
   uint32 private constant CONVERSION_FEE_RESOLUTION = 1000000;
@@ -122,7 +123,7 @@ contract ContinuousToken is IContinuousToken, ERC20, Ownable {
     _mint(msg.sender, amount);
     _mint(feeBeneficiary, feeAmount);
 
-    Helpers.ensureTransferFrom(reserveToken, msg.sender, address(this), _depositAmount);
+    reserveToken.transferFrom(msg.sender, address(this), _depositAmount);
 
     emit Buy(msg.sender, _depositAmount, amount, feeAmount);
     emit PriceUpdate(totalSupply(), getReserveBalance());
@@ -151,8 +152,8 @@ contract ContinuousToken is IContinuousToken, ERC20, Ownable {
 
     _burn(msg.sender, _sellAmount);
 
-    Helpers.ensureTransfer(reserveToken, msg.sender, amount);
-    Helpers.ensureTransfer(reserveToken, feeBeneficiary, feeAmount);
+    reserveToken.transfer(msg.sender, amount);
+    reserveToken.transfer(feeBeneficiary, feeAmount);
 
     emit Sell(msg.sender, _sellAmount, amount, feeAmount);
     emit PriceUpdate(totalSupply(), getReserveBalance());

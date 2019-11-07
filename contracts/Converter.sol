@@ -9,12 +9,14 @@
 pragma solidity ^0.5.10;
 
 import "openzeppelin-solidity/contracts/token/ERC20/IERC20.sol";
+import "openzeppelin-solidity/contracts/token/ERC20/SafeERC20.sol";
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
-import "./Helpers.sol";
 import "./interfaces/IConverter.sol";
 
 
 contract Converter is IConverter {
+  using SafeERC20 for IERC20;
+
   event Convert1to2(address indexed sender, uint256 amount);
   event Convert2to1(address indexed sender, uint256 amount);
 
@@ -29,8 +31,8 @@ contract Converter is IConverter {
   function convert1to2(uint256 _amount) external {
     require(token2.balanceOf(address(this)) >= _amount, "Not enough funds on converter");
 
-    Helpers.ensureTransferFrom(token1, msg.sender, address(this), _amount);
-    Helpers.ensureTransfer(token2, msg.sender, _amount);
+    token1.transferFrom(msg.sender, address(this), _amount);
+    token2.transfer(msg.sender, _amount);
 
     emit Convert1to2(msg.sender, _amount);
   }
@@ -38,8 +40,8 @@ contract Converter is IConverter {
   function convert2to1(uint256 _amount) external {
     require(token1.balanceOf(address(this)) >= _amount, "Not enough funds on converter");
 
-    Helpers.ensureTransferFrom(token2, msg.sender, address(this), _amount);
-    Helpers.ensureTransfer(token1, msg.sender, _amount);
+    token2.transferFrom(msg.sender, address(this), _amount);
+    token1.transfer(msg.sender, _amount);
 
     emit Convert2to1(msg.sender, _amount);
   }
