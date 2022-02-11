@@ -12,7 +12,7 @@
     "ethlint": "1.2.5",
     "ganache-core": "2.8.0",
     "lodash": "^4.17.15",
-    "@openzeppelin/contracts": "2.3.0",
+    "@openzeppelin/contracts": "4.4.2",
     "solidity-coverage": "^0.6.7",
     "truffle": "5.0.42",
     "web3": "1.2.1"
